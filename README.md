@@ -4,12 +4,15 @@ Configure the terraform backend for future IaC config. Use this repository to se
 
 ## Prerequisites
 
-Clone this repo locally, ensure terraform is intalled (brew install terraform)
+Clone this repo locally, ensure terraform is installed (brew install terraform)
 
 ### Usage
 
 **One: Create a user for terraform**
-Create a terraform user with privileges to create S3 and DynamoDb in the AWS IAM console.
+Create a terraform user with privileges to:
+
+- create S3
+- create DynamoDb
 
 **Two: Add access keys to user**
 Create a access key credentials for the terraform user in the IAM console under Security Credentials.
@@ -19,6 +22,24 @@ Use the aws cli to use the access keys associated with the terraform user
 
 ```bash
 aws configure
+```
+
+If you have multiple aws credentials to manage consider using the ~/.aws/credentials file and profiles.
+
+```bash
+[default] #This is the default profile
+aws_access_key_id = abcdef
+aws_secret_access_key = ghijkl
+
+[app2_account] #This is the profile name
+aws_access_key_id = vwxyz
+aws_secret_access_key = cdefg
+```
+
+A specific profile can be set by using:
+
+```bash
+export AWS_PROFILE=app2_account
 ```
 
 **Four: Create the S3 and Dynamo DB Tables**
